@@ -25,7 +25,7 @@ export const initialState = {
     {
       id: 100,
       name: 'Lettuce',
-      category: 'Vegitable',
+      category: 'Vegetable',
       deliveryMethod: 'Ground',
     },
     {
@@ -56,23 +56,45 @@ export default function reducer(state = initialState, action) {
 
     case REMOVE_ITEM:
       // Write a custom reducer that will remove an item from the list array
-      return state; 
+      const index = state.list.findIndex((item) => item.id === payload);
+      return update(state, { list: { $splice: [[index, 1]] } });
 
     case SELECT_ITEM:
       // Write a custom reducer that will select an item
-      return state;
+
+      return update(state, {
+        isItemSelected: { $set: true },
+        selectedItem: { $set: payload },
+      });
 
     case DESELECT_ITEM:
       // Write a customer reducer that will deselect an item
-      return state;
+      return update(state, {
+        isItemSelected: { $set: false },
+        selectedItem: { $set: initialState.selectedItem },
+      });
 
     default:
       return state;
   }
-};
+}
 
 // Action Creators
-export const addItem = item => ({
+export const addItem = (item) => ({
   type: ADD_ITEM,
   payload: item,
+});
+
+export const removeItem = (id) => ({
+  type: REMOVE_ITEM,
+  payload: id,
+});
+
+export const selectItem = (item) => ({
+  type: SELECT_ITEM,
+  payload: item,
+});
+
+export const deselectItem = () => ({
+  type: DESELECT_ITEM,
 });

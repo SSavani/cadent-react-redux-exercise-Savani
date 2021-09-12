@@ -8,16 +8,13 @@ export const ListInputs = ({ addItem }) => {
       name: 'Roasted Turkey',
       category: 'Deli',
       deliveryMethod: 'Ground',
-    }
+    };
 
     addItem(item);
-  }
+  };
 
   return (
-    <button
-      className="addItemButton"
-      onClick={createItem}
-    >
+    <button className="addItemButton" onClick={createItem}>
       Add Random Item
     </button>
   );
